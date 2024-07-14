@@ -48,35 +48,41 @@ const App = () => {
       setTasks(filteredTasks)
     }
 
-    //remove task
-    //tasks can only be deleted if they were created 5 days ago
     const deleteTask = (id) => {
-      const api = 'http://localhost:8080/tasks'
-      try{
+      const api = 'http://localhost:8080/tasks';    
+      setTasks(tasks.filter(task => task.id !== id));    
+      try {
         axios.delete(`${api}/${id}`)
-        .then(response => {
-          setTasks(response.data)
-        })
-      }
-      catch (error) {
-        console.log("Tasks can only be deleted after 5 days")
+          .then(response => {
+            console.log("Task deleted successfully:", response.data); 
+          })
+      } catch (error) {
+        console.log("Error deleting task:", error); 
+        //preventing the UI from deleting task without deleting in on the backend
+        setTasks([...tasks, { id, ...tasks.find(task => task.id === id) }]);
       }
     }
-    //finished and update have cors related errors
+    
     const finishTask = (taskId) => {
+      const api = 'http://localhost:8080/tasks';
+      axios.put(`${api}/${taskId}/status`, { "status": "COMPLETED" })
+        .then(() => {
+          axios.get(`${api}/${taskId}`)
+            .then(updatedTask => {
+              setTasks(tasks.map(task => task.id === taskId ? updatedTask.data : task));
+            });
+        });
+    };
+    const updateTask = (taskId) => {
       const api = 'http://localhost:8080/tasks'
-      axios.put(`${api}/${taskId}`, {status: 'COMPLETED'})
-      .then(response => {
-        setTasks(tasks.map(task=> task.id === taskId ? response.data : task))
+      axios.put(`${api}/${taskId}/status`, {"status": "IN_PROGRESS"})
+      .then(() => {
+        axios.get(`${api}/${taskId}`)
+        .then(updatedTask => {
+        setTasks(tasks.map(task=> task.id === taskId ? updatedTask.data : task))
       })
-    }
-    const updateTask =(taskId) => {
-      const api = 'http://localhost:8080/tasks'
-      axios.put(`${api}/${taskId}`, {status: 'IN_PROGRESS'})
-      .then(response => {
-        setTasks(tasks.map(task=> task.id === taskId ? response.data : task))
-      })
-    }
+    })
+  }
   return (
     <div className='app'>
       <header>
@@ -84,7 +90,7 @@ const App = () => {
 
         
         <h1 className="title">Add task</h1>
-        <form onSubmit={createTask}> {/* Add onSubmit handler */}
+        <form onSubmit={createTask}> 
           <input
             type="text"
             placeholder="Title"
@@ -116,13 +122,13 @@ const App = () => {
           {tasks.map((task) => (
             <li key={task.id}>
                       <h3>{task.name}
-                        <button className='btn' onClick={deleteTask}>🗑️</button>
+                        <button className='btn' onClick={() => deleteTask(task.id)}>🗑️</button>
                         </h3>
                       <p>{task.description}</p>
                       <p>Due Date: {task.dueDate}</p>
                       <p>Status: {task.status}</p>
-                      <button className='btn' onClick={updateTask}>In progress</button>
-                      <button className='btn-done' onClick={finishTask}>Done</button>
+                      <button className='btn' onClick={() => updateTask(task.id)}>In progress</button>
+                      <button className='btn-done' onClick={() => finishTask(task.id)}>Done</button>
                     </li>
                   ))}
                 </ul>

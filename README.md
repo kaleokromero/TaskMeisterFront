@@ -1,9 +1,4 @@
-# MISSING UPDATE STATUS
-# TASKS CAN ONLY BE DELETED IF THEY WERE CREATED 5 DAYS AGO
-(will generate cors error)
-
-css animation and search filter implemented
-
+# Missing styling on the UI, code is now fully working
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
