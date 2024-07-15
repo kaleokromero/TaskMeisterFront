@@ -90,7 +90,7 @@ const App = () => {
 
         
         <h1 className="title">Add task</h1>
-        <form onSubmit={createTask}> 
+        <form onSubmit={createTask} className='form'> 
           <input
             type="text"
             placeholder="Title"
@@ -113,14 +113,16 @@ const App = () => {
 
       </header>
 
+      <div className='filter'>
       <p>Search task</p>
       <Filter onFilterChange={handleChange} filterText={filter} />
+      </div>
+
       <div className='tasks'>
-        <h3>Your tasks</h3>
-        <p>by due date order</p>
+        <h3 className='task-title'>Your tasks</h3>
         <ul>
           {tasks.map((task) => (
-            <li key={task.id}>
+            <li key={task.id} className='card'>
                       <h3>{task.name}
                         <button className='btn' onClick={() => deleteTask(task.id)}>🗑️</button>
                         </h3>
