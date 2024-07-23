@@ -1,6 +1,7 @@
+import './Filter.css'
 const Filter = ({ filterText, onFilterChange }) => {
     return (
-      <form>
+      <form className="search">
        <input
        type="text"
        placeholder="Search..."

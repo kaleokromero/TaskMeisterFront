@@ -85,37 +85,40 @@ const App = () => {
   }
   return (
     <div className='app'>
-      <header>
+      <header className='test'>
         <h1 className='header'>Tasks</h1>
 
         
-        <h1 className="title">Add task</h1>
+        <h2 className="title">write a new task</h2>
         <form onSubmit={createTask} className='form'> 
           <input
             type="text"
+            className='form'
             placeholder="Title"
             value={taskName}
             onChange={(e) => setTaskName(e.target.value)}
           />
           <input
             type="text"
+            className='form'
             placeholder='Description'
             value={taskDescription}
             onChange={(e) => setTaskDescription(e.target.value)}
           />
           <input
             type="date"
+            className='date'
             value={taskDueDate}
             onChange={(e) => setTaskDueDate(e.target.value)}
           />
-          <button type="submit" className='btn'>Add</button>
+          <button type="submit" className='submit'>Add</button>
         </form>
 
       </header>
 
       <div className='filter'>
       <p>Search task</p>
-      <Filter onFilterChange={handleChange} filterText={filter} />
+      <Filter onFilterChange={handleChange} filterText={filter}/>
       </div>
 
       <div className='tasks'>
@@ -133,7 +136,8 @@ const App = () => {
                       <button className='btn-done' onClick={() => finishTask(task.id)}>Done</button>
                     </li>
                   ))}
-                </ul>
+        </ul>
+
       </div>
     </div>
   )
