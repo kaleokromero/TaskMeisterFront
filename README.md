@@ -1,4 +1,14 @@
-# Missing styling on the UI, code is now fully working
+# React + SpringBoot Task management system!
+this project was created during a interview process, following the pre requisites that tasks can only be created on bussiness days and deleted if status is pending or completed
+# Sistema de gerenciamento de tarefas feito com React + SpringBoot!
+Esse projeto foi criado seguindo dois pré requisitos: tarefas só podem ser criadas durante dias de semana, e deleta-las só e possível se o status dela é pendente ou completo
+
+# This project uses Axios and is integrated with MYSQL
+# Este projeto utiliza Axios e MYSQL
+
+# APP
+![TaskMeisterFront](https://github.com/kaleokromero/TaskMeisterFront/blob/master/taskFront.PNG)
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
